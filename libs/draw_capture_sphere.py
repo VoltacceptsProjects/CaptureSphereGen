@@ -6,6 +6,7 @@ from PIL import Image
 from libs.shape import WIDTH, HEIGHT, PIXELS as SHAPE_PIXELS
 from libs.palette_gen import build_palette
 from libs.color_api import fetch_color_name, slugify
+from libs.terminal_anim import animate_capture_sphere
 
 PALETTES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'palettes')
 
@@ -40,6 +41,7 @@ def _render(palette, pixels=SHAPE_PIXELS, width=WIDTH, height=HEIGHT):
 
 def draw_capture_sphere(capture_sphere_name):
     mod = load_palette_module(capture_sphere_name)
+    animate_capture_sphere(capture_sphere_name, mod.PIXELS, mod.PALETTE, mod.WIDTH, mod.HEIGHT)
     return _render(mod.PALETTE, mod.PIXELS, mod.WIDTH, mod.HEIGHT)
 
 
@@ -53,6 +55,7 @@ def draw_custom_capture_sphere(hex_code, save_palette=True):
     capture_sphere_name = f'{slug}_capture_sphere'
 
     palette = build_palette(hex_used)
+    animate_capture_sphere(capture_sphere_name, SHAPE_PIXELS, palette, WIDTH, HEIGHT)
     img = _render(palette)
 
     if save_palette:
