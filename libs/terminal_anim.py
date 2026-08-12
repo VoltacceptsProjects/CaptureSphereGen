@@ -1,4 +1,5 @@
 import os
+import random
 import sys
 import time
 
@@ -13,7 +14,8 @@ CELL = '██'
 EMPTY = '  '
 
 HEADER_LINES = 2  # title line + blank line before the grid starts
-DELAY = 0.012  # seconds between each pixel
+DELAY_MIN = 0.012  # seconds
+DELAY_MAX = 0.12  # seconds
 
 
 def _enable_windows_ansi():
@@ -101,7 +103,7 @@ def animate_capture_sphere(name, pixels, palette, width, height):
                 else:
                     out.write(_fg((r, g, b)) + CELL + RESET)
                 out.flush()
-                time.sleep(DELAY)
+                time.sleep(random.uniform(DELAY_MIN, DELAY_MAX))
         out.write(_goto(HEADER_LINES + 1 + height, 1))
         out.flush()
         time.sleep(0.2)
